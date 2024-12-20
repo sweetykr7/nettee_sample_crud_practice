@@ -49,4 +49,8 @@ public class Todo extends BaseEntity {
         this.status = TodoStatus.PENDING;
     }
 
+    public void markAsRemoved() {
+        this.status = TodoStatus.REMOVED;
+    }
+
 }

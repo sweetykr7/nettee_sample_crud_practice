@@ -9,4 +9,3 @@ public interface ErrorCode {
     RuntimeException defaultException();
     RuntimeException defaultException(Throwable cause);
 }
-
