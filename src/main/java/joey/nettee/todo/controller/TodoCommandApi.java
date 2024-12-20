@@ -47,6 +47,20 @@ public class TodoCommandApi {
                 .build();
     }
 
+    @PutMapping("/edited/{id}")
+    public TodoCommandDto.TodoUpdateResponse update(
+            @PathVariable("id")
+            @NotNull(message = "작업 번호를 지정해주세요.")
+            Long id,
+            @RequestBody @Valid TodoCommandDto.TodoUpdateEditedRequest request
+            ){
+        var todo = todoUpdateUseCase.updateEdited(id, request.content());
+
+        return TodoCommandDto.TodoUpdateResponse.builder()
+                .todo(todo)
+                .build();
+    }
+
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(

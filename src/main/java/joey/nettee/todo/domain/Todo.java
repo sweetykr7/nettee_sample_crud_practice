@@ -42,6 +42,15 @@ public class Todo extends BaseEntity {
         this.content = content;
     }
 
+    @Builder(
+            builderClassName = "UpdateEditedTodoBuilder",
+            builderMethodName = "prepareUpdateEdited",
+            buildMethodName = "update"
+    )
+    public void updateContentEdited(String content) {
+        this.content = content + " 으로 변경됨";
+    }
+
     public void markAsCompleted() {
         this.status = TodoStatus.COMPLETED;
     }

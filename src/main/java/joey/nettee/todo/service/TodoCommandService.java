@@ -42,6 +42,14 @@ public class TodoCommandService implements TodoCreateUseCase, TodoUpdateUseCase,
         return todo;
     }
 
+    @Transactional
+    @Override
+    public Todo updateEdited(Long id, String content) {
+        Todo todo = findTodoById(id);
+        todo.prepareUpdateEdited().content(content).update();
+        return todo;
+    }
+
 //    @Transactional //soft delete라 필요 없을듯?
     @Override
     public void delete(Long id) {
