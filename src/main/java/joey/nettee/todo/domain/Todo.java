@@ -4,17 +4,14 @@ package joey.nettee.todo.domain;
 import jakarta.persistence.*;
 import joey.nettee.common.jpa.support.BaseEntity;
 import joey.nettee.todo.domain.type.TodoStatus;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.Instant;
 
 @Entity
 @Builder
-@NoArgsConstructor
-@AllArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+//@AllArgsConstructor
 @Getter
 public class Todo extends BaseEntity {
 
@@ -29,12 +26,21 @@ public class Todo extends BaseEntity {
     private Instant updatedAt;
 
 
+    @Builder
+    public Todo(Long id, String content, TodoStatus status, Instant createdAt, Instant updatedAt) {
+        this.id = id;
+        this.content = content;
+        this.status = status;
+        this.createdAt = createdAt != null ? createdAt:Instant.now();
+        this.updatedAt = updatedAt != null ? updatedAt:Instant.now();
+    }
+
     public TodoStatus status() {
         return status;
     }
 
     @Builder(
-            builderClassName = "UpdateTodoBuilder",
+            builderClassName = "UpdateContentTodoBuilder",
             builderMethodName = "prepareUpdate",
             buildMethodName = "update"
     )
